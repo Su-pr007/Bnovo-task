@@ -1,0 +1,79 @@
+{
+	"info": {
+		"_postman_id": "a8a9c978-efcd-4f9b-8e60-b5a6ae159e0c",
+		"name": "Bnovo-task",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "36356230"
+	},
+	"item": [
+		{
+			"name": "GET guests",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{api_server}}/api/guests"
+			},
+			"response": []
+		},
+		{
+			"name": "POST guests",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"name\":\"Имя пользователя 1\",\"surname\":\"Фамилия пользователя 1\",\"phone\":\"+7 (987) 654 32-10\",\"email\":\"test_user@mail.ru\",\"country\":\"rus\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{api_server}}/api/guests"
+			},
+			"response": []
+		},
+		{
+			"name": "GET guest",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{api_server}}/api/guests/{{guest_id}}"
+			},
+			"response": []
+		},
+		{
+			"name": "PUT guest",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"name\":\"Новое имя пользователя 1\",\"surname\":\"Новая фамилия пользователя 1\",\"phone\":\"+7 (987) 654 32-10\",\"email\":\"test_user@mail.ru\",\"country\":\"rus\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{api_server}}/api/guests/{{guest_id}}"
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE guest",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "{{api_server}}/api/guests/{{guest_id}}"
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "guest_id",
+			"value": "1"
+		}
+	]
+}
