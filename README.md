@@ -16,3 +16,6 @@
 | DELETE       | api/guests/{guest} | Удаление гостя   |
 
 Сохранённые запросы для Postman находятся в соседнем файле [Bnovo-task.postman_collection.json](./Bnovo-task.postman_collection.json)
+
+## Как разворачивать проект
+
