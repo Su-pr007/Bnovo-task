@@ -2,14 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\DTO\CreateGuestRequestDTO;
-use App\DTO\Exceptions\GuestNotFoundException;
-use App\Http\Requests\Guests\GuestRequest;
+use App\DTO\GuestRequestDTO;
 use App\Models\Guest;
 use Illuminate\Http\Request;
 
 class GuestsController extends Controller
 {
+    const CREATE_GUEST_RULES = [
+        'name' => ['string', 'required'],
+        'surname' => ['string', 'required'],
+        'phone' => ['string', 'required', 'unique:guests'],
+        'email' => ['string', 'unique:guests'],
+        'country' => ['string', 'max:3'],
+    ];
+    const UPDATE_GUEST_RULES = [
+        'name' => ['string'],
+        'surname' => ['string'],
+        'phone' => ['string', 'unique:guests'],
+        'email' => ['string', 'unique:guests'],
+        'country' => ['nullable', 'string', 'max:3'],
+    ];
+
     /**
      * Display a listing of the resource.
      */
@@ -21,20 +34,24 @@ class GuestsController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(GuestRequest $request)
+    public function store(Request $request)
     {
         try {
-            $guestDTO = CreateGuestRequestDTO::createFromRequest($request);
+            $request->validate(self::CREATE_GUEST_RULES);
+            $guestDTO = GuestRequestDTO::createFromRequest($request);
             $guestDTO->createModel();
         } catch (\Throwable $e) {
             return response()->json([
                 'result' => 'error',
-                'message' => $e->getMessage()
+                'message' => $e->getMessage(),
+                'debug' => [
+                    'location' => $e->getFile() . ':' . $e->getLine(),
+                ],
             ]);
         }
 
         return response()->json([
-            'result' => 'ok'
+            'result' => 'ok',
         ]);
     }
 
@@ -49,20 +66,21 @@ class GuestsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(GuestRequest $request, string $id)
+    public function update(Request $request, string $id)
     {
         try {
-            $guestDTO = CreateGuestRequestDTO::createFromRequest($request);
+            $request->validate(self::UPDATE_GUEST_RULES);
+            $guestDTO = GuestRequestDTO::createFromRequest($request);
             $guestDTO->updateModel($id);
-        } catch (GuestNotFoundException $e) {
+        } catch (\Throwable $e) {
             return response()->json([
                 'result' => 'error',
-                'message' => $e->getMessage()
+                'message' => $e->getMessage(),
             ]);
         }
 
         return response()->json([
-            'result' => 'ok'
+            'result' => 'ok',
         ]);
     }
 
@@ -74,7 +92,7 @@ class GuestsController extends Controller
         Guest::destroy($id);
 
         return response()->json([
-            'result' => 'ok'
+            'result' => 'ok',
         ]);
     }
 }

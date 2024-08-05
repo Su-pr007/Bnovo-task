@@ -12,18 +12,18 @@ class PhoneCountry
     public static function defineCountry(string $phone): CountriesEnum
     {
         $phoneUtil = PhoneNumberUtil::getInstance();
-        $countryCode = 0;
+        $countryCode = null;
 
         try {
             // Парсинг номера телефона
             $numberProto = $phoneUtil->parse($phone);
 
             // Получение кода страны
-            $countryCode = $numberProto->getCountryCode();
+            $countryCode = $phoneUtil->getRegionCodeForNumber($numberProto);
         } catch (NumberParseException $e) {
             Log::alert('Не найдена страна для номера телефона ' . $phone . '. Текст ошибки: ' . $e->getMessage());
         }
 
-        return CountriesEnum::tryFrom($countryCode);
+        return CountriesEnum::tryFrom($countryCode) ?? CountriesEnum::RUSSIA;
     }
 }

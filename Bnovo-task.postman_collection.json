@@ -22,7 +22,25 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"name\":\"Имя пользователя 1\",\"surname\":\"Фамилия пользователя 1\",\"phone\":\"+7 (987) 654 32-10\",\"email\":\"test_user@mail.ru\",\"country\":\"rus\"}",
+					"raw": "{\"name\":\"Имя пользователя 1\",\"surname\":\"Фамилия пользователя 1\",\"phone\":\"+7 902 751 32 77\",\"email\":\"test_user1@mail.ru\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{api_server}}/api/guests"
+			},
+			"response": []
+		},
+		{
+			"name": "POST guests (no country)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"name\":\"Имя пользователя 2\",\"surname\":\"Фамилия пользователя 2\",\"phone\":\"+44 20 7123 4567\",\"email\":\"test_user2@mail.ru\"}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -38,7 +56,7 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": "{{api_server}}/api/guests/{{guest_id}}"
+				"url": "{{api_server}}/api/guests/1"
 			},
 			"response": []
 		},
@@ -49,14 +67,32 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"name\":\"Новое имя пользователя 1\",\"surname\":\"Новая фамилия пользователя 1\",\"phone\":\"+7 (987) 654 32-10\",\"email\":\"test_user@mail.ru\",\"country\":\"rus\"}",
+					"raw": "{\"name\":\"Имя пользователя 2\",\"surname\":\"Фамилия пользователя 2\", \"phone\": \"+44 902 751 32 74\",\"country\":\"\"}",
 					"options": {
 						"raw": {
 							"language": "json"
 						}
 					}
 				},
-				"url": "{{api_server}}/api/guests/{{guest_id}}"
+				"url": "{{api_server}}/api/guests/2"
+			},
+			"response": []
+		},
+		{
+			"name": "PUT guest 2",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"surname\":\"Фамилия пользователя 2\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{api_server}}/api/guests/1"
 			},
 			"response": []
 		},
@@ -65,7 +101,7 @@
 			"request": {
 				"method": "DELETE",
 				"header": [],
-				"url": "{{api_server}}/api/guests/{{guest_id}}"
+				"url": "{{api_server}}/api/guests/1"
 			},
 			"response": []
 		}
